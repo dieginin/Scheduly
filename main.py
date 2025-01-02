@@ -8,6 +8,8 @@ class Main:
         super().__init__()
 
         page.title = "Scheduly"
+        page.theme = ft.Theme(color_scheme_seed=ft.Colors.AMBER)
+
         Router(page)
 
 
