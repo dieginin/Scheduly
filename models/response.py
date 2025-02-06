@@ -7,7 +7,7 @@ class Response:
         self.message = message
 
     @classmethod
-    def from_error(cls, data: str) -> "Response":
+    def create_from_error(cls, data: str) -> "Response":
         error_message = json.loads(data)["error"]["message"]
         clean_message = (
             error_message.split(": ")[1] if ": " in error_message else error_message
