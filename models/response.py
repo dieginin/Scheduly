@@ -2,9 +2,10 @@ import json
 
 
 class Response:
-    def __init__(self, status: str, message: str) -> None:
+    def __init__(self, status: str, message: str, data: str | None = None) -> None:
         self.status = status
         self.message = message
+        self.data = data
 
     @classmethod
     def from_error(cls, data: str) -> "Response":
