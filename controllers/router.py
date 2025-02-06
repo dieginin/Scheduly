@@ -55,10 +55,10 @@ class Router:
         routes = get_routes("views")
 
         if e.route in routes:
-            if e.page.client_storage.get("token") or e.route == "/register":
-                e.page.views.append(routes[e.route])
+            if e.page.client_storage.get("token") or e.route in ["/reset", "/register"]:
+                e.page.views.append(routes[e.route]())
             else:
-                e.page.views.append(routes["/login"])
+                e.page.views.append(routes["/login"]())
         else:
             e.page.views.append(PageNotFoundView())
 
