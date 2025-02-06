@@ -11,5 +11,5 @@ class Response:
         error_message = json.loads(data)["error"]["message"]
         clean_message = (
             error_message.split(": ")[1] if ": " in error_message else error_message
-        )
+        ).replace("_", " ")
         return cls("Error", clean_message.capitalize())
