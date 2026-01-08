@@ -1,6 +1,6 @@
-import "./index.css"
+import "@/index.css"
 
-import { SchedulyApp } from "./SchedulyApp"
+import { SchedulyApp } from "@/SchedulyApp"
 import { StrictMode } from "react"
 import { createRoot } from "react-dom/client"
 
