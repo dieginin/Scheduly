@@ -2,7 +2,7 @@ import { Outlet } from "react-router"
 
 const AuthLayout = () => {
   return (
-    <div>
+    <div className='grid items-center justify-center min-h-svh'>
       <Outlet />
     </div>
   )
