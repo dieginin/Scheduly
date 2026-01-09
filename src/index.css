@@ -68,8 +68,8 @@
   --card-foreground: oklch(0.2 0 0);
   --popover: oklch(0.99 0 0);
   --popover-foreground: oklch(0.44 0 0);
-  --primary: oklch(0.84 0.23 129.65);
-  --primary-foreground: oklch(0.26 0.01 166.42);
+  --primary: oklch(69.789% 0.11106 172.181);
+  --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.99 0.03 120.71);
   --secondary-foreground: oklch(0.2 0 0);
   --muted: oklch(0.95 0 0);
@@ -119,8 +119,8 @@
   --card-foreground: oklch(0.93 0.01 255.51);
   --popover: oklch(0.26 0 0);
   --popover-foreground: oklch(0.73 0 0);
-  --primary: oklch(0.77 0.22 132.45);
-  --primary-foreground: oklch(0.26 0 0);
+  --primary: oklch(69.789% 0.11106 172.181);
+  --primary-foreground: oklch(0.205 0 0);
   --secondary: oklch(0.45 0.12 131.17);
   --secondary-foreground: oklch(0.99 0 0);
   --muted: oklch(0.24 0 0);
@@ -161,5 +161,6 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-family: "Montserrat", sans-serif;
   }
 }
