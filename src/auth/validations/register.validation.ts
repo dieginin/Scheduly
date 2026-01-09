@@ -14,5 +14,5 @@ export const registerFormSchema = z
   })
   .refine(data => data.password === data.confirmPassword, {
     error: validationMessages.passwordMatch,
-    path: ["password"],
+    path: ["confirmPassword"],
   })
