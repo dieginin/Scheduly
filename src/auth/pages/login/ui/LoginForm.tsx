@@ -19,8 +19,8 @@ export const LoginForm = () => {
   const onSubmit = (data: LoginFormData) => console.log(data) // TODO
 
   return (
-    <div className='grid'>
-      <form onSubmit={form.handleSubmit(onSubmit)} className='px-3 grid gap-5'>
+    <form onSubmit={form.handleSubmit(onSubmit)} className='grid'>
+      <div className='grid gap-5 px-3'>
         <Controller
           name='username'
           control={form.control}
@@ -36,7 +36,7 @@ export const LoginForm = () => {
             <FormField field={field} fieldState={fieldState} label='Password' name='password' placeholder='Enter your password' type='password' />
           )}
         />
-      </form>
+      </div>
 
       <Button type='button' variant='link' size='sm' className='mt-2' disabled>
         Forgot password? {/* TODO */}
@@ -47,6 +47,6 @@ export const LoginForm = () => {
           Register
         </Button>
       </div>
-    </div>
+    </form>
   )
 }
