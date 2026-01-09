@@ -5,6 +5,9 @@ import { Button } from "@/components/ui/button"
 import { FormField } from "@/auth/components"
 import { useNavigate } from "react-router"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useAuthStore } from "@/auth/stores"
+import { useState } from "react"
+import { toast } from "sonner"
 
 export const RegisterForm = () => {
   const navigate = useNavigate()
@@ -19,7 +22,18 @@ export const RegisterForm = () => {
     },
   })
 
-  const onSubmit = (data: RegisterFormData) => console.log(data) // TODO
+  const [isLoading, setIsLoading] = useState(false)
+  const { register } = useAuthStore()
+
+  const onSubmit = async (data: RegisterFormData) => {
+    setIsLoading(true)
+
+    const { name, email, username, password } = data
+    const isRegisterSuccessful = await register(name, email, username, password)
+
+    setIsLoading(false)
+    return isRegisterSuccessful ? toast.success("Welcome") : toast.error("Unable to register")
+  }
 
   return (
     <form onSubmit={form.handleSubmit(onSubmit)} className='grid gap-5'>
@@ -27,6 +41,7 @@ export const RegisterForm = () => {
         <Controller
           name='name'
           control={form.control}
+          disabled={isLoading}
           render={({ field, fieldState }) => (
             <FormField field={field} fieldState={fieldState} label={"Name"} name={"name"} placeholder={"Enter your name"} />
           )}
@@ -35,6 +50,7 @@ export const RegisterForm = () => {
         <Controller
           name='email'
           control={form.control}
+          disabled={isLoading}
           render={({ field, fieldState }) => (
             <FormField field={field} fieldState={fieldState} label='Email' name='email' placeholder='Enter a email' />
           )}
@@ -43,6 +59,7 @@ export const RegisterForm = () => {
         <Controller
           name='username'
           control={form.control}
+          disabled={isLoading}
           render={({ field, fieldState }) => (
             <FormField field={field} fieldState={fieldState} label='Username' name='username' placeholder='Enter a username' />
           )}
@@ -51,14 +68,16 @@ export const RegisterForm = () => {
         <Controller
           name='password'
           control={form.control}
+          disabled={isLoading}
           render={({ field, fieldState }) => (
             <FormField field={field} fieldState={fieldState} label='Password' name='password' placeholder='Enter a password' type='password' />
           )}
         />
 
         <Controller
-          name='password'
+          name='confirmPassword'
           control={form.control}
+          disabled={isLoading}
           render={({ field, fieldState }) => (
             <FormField
               field={field}
@@ -73,8 +92,8 @@ export const RegisterForm = () => {
       </div>
 
       <div className='grid gap-2'>
-        <Button>Register</Button>
-        <Button type='button' variant='outline' onClick={() => navigate("/auth/login")}>
+        <Button disabled={isLoading}>Register</Button>
+        <Button type='button' variant='outline' onClick={() => navigate("/auth/login")} disabled={isLoading}>
           Go Back
         </Button>
       </div>
