@@ -5,6 +5,6 @@ import { z } from "zod"
 export type LoginFormData = z.infer<typeof loginFormSchema>
 
 export const loginFormSchema = z.object({
-  username: z.string().min(USERNAME_MIN, validationMessages.usernameMin).regex(AlphanumericRegex, validationMessages.alphanumeric),
-  password: z.string().min(PASSWORD_MIN, validationMessages.passwordMin),
+  username: z.string().trim().min(USERNAME_MIN, validationMessages.usernameMin).regex(AlphanumericRegex, validationMessages.alphanumeric),
+  password: z.string().trim().min(PASSWORD_MIN, validationMessages.passwordMin),
 })
