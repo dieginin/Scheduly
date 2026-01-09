@@ -3,6 +3,7 @@ export const USERNAME_MIN = 3
 export const PASSWORD_MIN = 6
 
 export const AlphanumericRegex = /^[a-zA-Z0-9]+$/
+export const AlphanumericWithSpaceRegex = /^[a-zA-Z0-9 ]+$/
 
 export const validationMessages = {
   alphanumeric: "Must only contain letters and numbers",
