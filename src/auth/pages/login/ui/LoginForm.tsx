@@ -5,6 +5,9 @@ import { Button } from "@/components/ui/button"
 import { FormField } from "@/auth/components"
 import { useNavigate } from "react-router"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useAuthStore } from "@/auth/stores"
+import { useState } from "react"
+import { toast } from "sonner"
 
 export const LoginForm = () => {
   const navigate = useNavigate()
@@ -16,7 +19,18 @@ export const LoginForm = () => {
     },
   })
 
-  const onSubmit = (data: LoginFormData) => console.log(data) // TODO
+  const [isLoading, setIsLoading] = useState(false)
+  const { login } = useAuthStore()
+
+  const onSubmit = async (data: LoginFormData) => {
+    setIsLoading(true)
+
+    const { password, username } = data
+    const isLoginSuccessful = await login(password, username)
+
+    setIsLoading(false)
+    return isLoginSuccessful ? toast.success("Welcome back") : toast.error("Verify credentials")
+  }
 
   return (
     <form onSubmit={form.handleSubmit(onSubmit)} className='grid'>
@@ -42,7 +56,7 @@ export const LoginForm = () => {
         Forgot password? {/* TODO */}
       </Button>
       <div className='grid gap-2'>
-        <Button>Login</Button>
+        <Button disabled={isLoading}>Login</Button>
         <Button type='button' variant='outline' onClick={() => navigate("/auth/register")}>
           Register
         </Button>
