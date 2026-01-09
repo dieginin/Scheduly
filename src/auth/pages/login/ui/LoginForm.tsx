@@ -38,6 +38,7 @@ export const LoginForm = () => {
         <Controller
           name='username'
           control={form.control}
+          disabled={isLoading}
           render={({ field, fieldState }) => (
             <FormField field={field} fieldState={fieldState} label='Username' name='username' placeholder='Enter your username' />
           )}
@@ -46,6 +47,7 @@ export const LoginForm = () => {
         <Controller
           name='password'
           control={form.control}
+          disabled={isLoading}
           render={({ field, fieldState }) => (
             <FormField field={field} fieldState={fieldState} label='Password' name='password' placeholder='Enter your password' type='password' />
           )}
@@ -57,7 +59,7 @@ export const LoginForm = () => {
       </Button>
       <div className='grid gap-2'>
         <Button disabled={isLoading}>Login</Button>
-        <Button type='button' variant='outline' onClick={() => navigate("/auth/register")}>
+        <Button type='button' variant='outline' onClick={() => navigate("/auth/register")} disabled={isLoading}>
           Register
         </Button>
       </div>
