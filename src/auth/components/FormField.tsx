@@ -17,7 +17,7 @@ export const FormField = <T extends FieldValues>({ field, fieldState, label, nam
   return (
     <Field data-invalid={fieldState.invalid} className='grid gap-1'>
       <FieldLabel htmlFor={name} children={label} />
-      <Input {...field} id={name} aria-invalid={fieldState.invalid} placeholder={placeholder} autoComplete='off' type={type} />
+      <Input {...field} id={name} aria-invalid={fieldState.invalid} placeholder={placeholder} type={type} />
       {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
     </Field>
   )
