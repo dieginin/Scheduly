@@ -1,6 +1,8 @@
-import type { User } from "../interfaces"
 import { type StateCreator, create } from "zustand"
+
+import type { User } from "../interfaces"
 import { devtools } from "zustand/middleware"
+import { getUserMock } from "@/mocks/user.mock"
 
 type AuthStatus = "authenticated" | "unauthenticated" | "checking"
 
@@ -22,11 +24,12 @@ const storeApi: StateCreator<AuthState> = (set, get) => ({
 
   checkStatus: async () => {
     try {
-      throw new Error("Not implemented")
       //   const { token, roles, ...data } = await checkAuthAction()
       //   const user = { ...data, roles: roles as Role[] }
-      //   set({ status: "authenticated", token, user })
-      //   return true
+      //   const user = { ...data, roles: roles as Role[] }
+      const { token, user } = await getUserMock("user")
+      set({ status: "authenticated", token, user })
+      return true
     } catch {
       get().logout()
       return false
