@@ -17,9 +17,7 @@ interface Props {
 export const FormField = ({ field, fieldState, label, name, placeholder, type }: Props) => {
   return (
     <Field data-invalid={fieldState.invalid} className='grid gap-1'>
-      <FieldLabel htmlFor={name} className='text-md'>
-        {label}
-      </FieldLabel>
+      <FieldLabel htmlFor={name} children={label} />
       <Input {...field} id={name} aria-invalid={fieldState.invalid} placeholder={placeholder} autoComplete='off' type={type} />
       {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
     </Field>
