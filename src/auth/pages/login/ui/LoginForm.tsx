@@ -37,6 +37,7 @@ export const LoginForm = () => {
           )}
         />
       </form>
+
       <Button type='button' variant='link' size='sm' className='mt-2' disabled>
         Forgot password? {/* TODO */}
       </Button>

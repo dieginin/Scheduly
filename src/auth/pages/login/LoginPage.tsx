@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 
-import { LoginForm } from "./ui/LoginForm"
+import { LoginForm } from "./ui"
 import { Title } from "@/auth/components"
 
 export const LoginPage = () => {
