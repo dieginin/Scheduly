@@ -2,9 +2,9 @@ import { Controller, useForm } from "react-hook-form"
 import { type LoginFormData, loginFormSchema } from "@/auth/validations"
 
 import { Button } from "@/components/ui/button"
-import { FormField } from "@/components/shared"
-import { zodResolver } from "@hookform/resolvers/zod"
+import { FormField } from "@/auth/components"
 import { useNavigate } from "react-router"
+import { zodResolver } from "@hookform/resolvers/zod"
 
 export const LoginForm = () => {
   const navigate = useNavigate()
