@@ -29,10 +29,10 @@ export const RegisterForm = () => {
     setIsLoading(true)
 
     const { name, email, username, password } = data
-    const isRegisterSuccessful = await register(name, email, username, password)
+    const isRegisterSuccessful = await register(email, name, password, username)
 
     setIsLoading(false)
-    return isRegisterSuccessful ? toast.success("Welcome") : toast.error("Unable to register")
+    if (isRegisterSuccessful) toast.success("Welcome")
   }
 
   return (

@@ -29,7 +29,7 @@ export const LoginForm = () => {
     const isLoginSuccessful = await login(password, username)
 
     setIsLoading(false)
-    return isLoginSuccessful ? toast.success("Welcome back") : toast.error("Verify credentials")
+    if (isLoginSuccessful) toast.success("Welcome back")
   }
 
   return (
