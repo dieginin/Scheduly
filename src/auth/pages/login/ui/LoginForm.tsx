@@ -19,24 +19,25 @@ export const LoginForm = () => {
   const onSubmit = (data: LoginFormData) => console.log(data) // TODO
 
   return (
-    <form onSubmit={form.handleSubmit(onSubmit)} className='px-3 grid gap-5'>
-      <Controller
-        name='username'
-        control={form.control}
-        render={({ field, fieldState }) => (
-          <FormField field={field} fieldState={fieldState} label='Username' name='username' placeholder='Enter your username' />
-        )}
-      />
+    <div className='grid'>
+      <form onSubmit={form.handleSubmit(onSubmit)} className='px-3 grid gap-5'>
+        <Controller
+          name='username'
+          control={form.control}
+          render={({ field, fieldState }) => (
+            <FormField field={field} fieldState={fieldState} label='Username' name='username' placeholder='Enter your username' />
+          )}
+        />
 
-      <Controller
-        name='password'
-        control={form.control}
-        render={({ field, fieldState }) => (
-          <FormField field={field} fieldState={fieldState} label='Password' name='password' placeholder='Enter your password' type='password' />
-        )}
-      />
-
-      <Button type='button' variant='link' size='sm' className='-mt-4 -mb-2' disabled>
+        <Controller
+          name='password'
+          control={form.control}
+          render={({ field, fieldState }) => (
+            <FormField field={field} fieldState={fieldState} label='Password' name='password' placeholder='Enter your password' type='password' />
+          )}
+        />
+      </form>
+      <Button type='button' variant='link' size='sm' className='mt-2' disabled>
         Forgot password? {/* TODO */}
       </Button>
       <div className='grid gap-2'>
@@ -45,6 +46,6 @@ export const LoginForm = () => {
           Register
         </Button>
       </div>
-    </form>
+    </div>
   )
 }
