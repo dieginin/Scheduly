@@ -15,7 +15,7 @@ const admin: User = {
   email: "owoepakej@cobi.by",
   name: "Polly Goodman",
   id: "2",
-  isActive: true,
+  isActive: false,
   roles: ["admin"],
   username: "admin",
 }
@@ -25,7 +25,7 @@ const superU: User = {
   name: "Emma Burton",
   id: "3",
   isActive: true,
-  roles: ["super"],
+  roles: ["super", "admin"],
   username: "super",
 }
 
