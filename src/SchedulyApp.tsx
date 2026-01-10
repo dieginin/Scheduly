@@ -2,11 +2,12 @@ import { Loading, ThemeListener } from "./components/shared"
 import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query"
 
 import type { PropsWithChildren } from "react"
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
+// import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 import { RouterProvider } from "react-router"
 import { Toaster } from "sonner"
 import { appRouter } from "./router/app.router"
 import { useAuth } from "./auth/hooks"
+import { useThemeStore } from "./stores"
 
 const queryClient = new QueryClient()
 const CheckAuthProvider = ({ children }: PropsWithChildren) => {
@@ -25,14 +26,16 @@ const CheckAuthProvider = ({ children }: PropsWithChildren) => {
 }
 
 export const SchedulyApp = () => {
+  const theme = useThemeStore(s => s.theme)
+
   return (
     <QueryClientProvider client={queryClient}>
       <CheckAuthProvider>
         <RouterProvider router={appRouter} />
-        <Toaster />
+        <Toaster position='top-right' theme={theme} closeButton />
       </CheckAuthProvider>
       <ThemeListener />
-      <ReactQueryDevtools initialIsOpen={false} />
+      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
     </QueryClientProvider>
   )
 }
