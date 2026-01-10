@@ -10,6 +10,8 @@ export const checkStatusAction = async (): Promise<AuthResponse> => {
     const { data } = await checkStatusMock()
     const user = { ...data.user, roles: data.user.roles as Role[] }
 
+    if (!user.isActive) throw new Error("Your account is inactive")
+
     localStorage.setItem("token", data.token)
     return { ...data, user }
   } catch {
