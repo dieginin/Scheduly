@@ -28,7 +28,7 @@ export const CustomCard = ({ buttonLabel, children, description, icon: Icon, tit
 
       {buttonLabel && (
         <CardFooter>
-          <Button className='w-full' onClick={onBtnClick}>
+          <Button className='w-full' onClick={onBtnClick} size='sm'>
             {buttonLabel}
           </Button>
         </CardFooter>
