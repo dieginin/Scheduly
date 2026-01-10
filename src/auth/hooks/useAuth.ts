@@ -1,14 +1,14 @@
 import { useAuthStore } from "../stores"
 
 export const useAuth = () => {
-  const status = useAuthStore(state => state.status)
-  const token = useAuthStore(state => state.token)
-  const user = useAuthStore(state => state.user)
+  const status = useAuthStore(s => s.status)
+  const token = useAuthStore(s => s.token)
+  const user = useAuthStore(s => s.user)
 
-  const checkStatus = useAuthStore(state => state.checkStatus)
-  const login = useAuthStore(state => state.login)
-  const logout = useAuthStore(state => state.logout)
-  const register = useAuthStore(state => state.register)
+  const checkStatus = useAuthStore(s => s.checkStatus)
+  const login = useAuthStore(s => s.login)
+  const logout = useAuthStore(s => s.logout)
+  const register = useAuthStore(s => s.register)
 
   const getUserInitials = () => {
     if (!user) return ""
