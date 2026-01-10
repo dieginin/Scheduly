@@ -2,12 +2,27 @@ import { Controller, useForm } from "react-hook-form"
 import { type LoginFormData, loginFormSchema } from "@/auth/validations"
 
 import { Button } from "@/components/ui/button"
+import type { Field } from "@/auth/interfaces"
 import { FormField } from "@/auth/components"
 import { toast } from "sonner"
 import { useAuth } from "@/auth/hooks"
 import { useNavigate } from "react-router"
 import { useState } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
+
+const fields: Field<LoginFormData>[] = [
+  {
+    label: "Username",
+    name: "username",
+    placeholder: "Enter your username",
+  },
+  {
+    label: "Password",
+    name: "password",
+    placeholder: "Enter your password",
+    type: "password",
+  },
+]
 
 export const LoginForm = () => {
   const navigate = useNavigate()
@@ -35,23 +50,17 @@ export const LoginForm = () => {
   return (
     <form onSubmit={form.handleSubmit(onSubmit)} className='grid'>
       <div className='grid gap-5 px-3'>
-        <Controller
-          name='username'
-          control={form.control}
-          disabled={isLoading}
-          render={({ field, fieldState }) => (
-            <FormField field={field} fieldState={fieldState} label='Username' name='username' placeholder='Enter your username' />
-          )}
-        />
-
-        <Controller
-          name='password'
-          control={form.control}
-          disabled={isLoading}
-          render={({ field, fieldState }) => (
-            <FormField field={field} fieldState={fieldState} label='Password' name='password' placeholder='Enter your password' type='password' />
-          )}
-        />
+        {fields.map(f => (
+          <Controller
+            key={f.name}
+            name={f.name}
+            control={form.control}
+            disabled={isLoading}
+            render={({ field, fieldState }) => (
+              <FormField field={field} fieldState={fieldState} label={f.label} name={f.name} placeholder={f.placeholder} type={f.type} />
+            )}
+          />
+        ))}
       </div>
 
       <Button type='button' variant='link' size='sm' className='mt-2' disabled>
