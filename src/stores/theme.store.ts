@@ -1,7 +1,6 @@
+import type { Theme } from "@/interfaces"
 import { create, type StateCreator } from "zustand"
 import { persist } from "zustand/middleware"
-
-type Theme = "dark" | "light" | "system"
 
 interface ThemeState {
   theme: Theme
