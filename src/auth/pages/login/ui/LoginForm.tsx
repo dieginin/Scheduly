@@ -3,7 +3,7 @@ import { type LoginFormData, loginFormSchema } from "@/auth/validations"
 
 import { Button } from "@/components/ui/button"
 import type { Field } from "@/auth/interfaces"
-import { FormField } from "@/auth/components"
+import { FormField } from "@/components/shared"
 import { Link } from "react-router"
 import { toast } from "sonner"
 import { useAuth } from "@/auth/hooks"
