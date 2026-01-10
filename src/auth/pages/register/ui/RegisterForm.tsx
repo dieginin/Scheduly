@@ -2,7 +2,7 @@ import { Controller, useForm } from "react-hook-form"
 import { type RegisterFormData, registerFormSchema } from "@/auth/validations"
 
 import { Button } from "@/components/ui/button"
-import type { Field } from "@/auth/interfaces"
+import type { Field } from "@/interfaces"
 import { FormField } from "@/components/shared"
 import { Link } from "react-router"
 import { toast } from "sonner"
