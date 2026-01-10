@@ -4,9 +4,9 @@ import { type LoginFormData, loginFormSchema } from "@/auth/validations"
 import { Button } from "@/components/ui/button"
 import type { Field } from "@/auth/interfaces"
 import { FormField } from "@/auth/components"
+import { Link } from "react-router"
 import { toast } from "sonner"
 import { useAuth } from "@/auth/hooks"
-import { useNavigate } from "react-router"
 import { useState } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 
@@ -25,7 +25,6 @@ const fields: Field<LoginFormData>[] = [
 ]
 
 export const LoginForm = () => {
-  const navigate = useNavigate()
   const form = useForm<LoginFormData>({
     resolver: zodResolver(loginFormSchema),
     defaultValues: {
@@ -68,9 +67,11 @@ export const LoginForm = () => {
       </Button>
       <div className='grid gap-2'>
         <Button disabled={isLoading}>Login</Button>
-        <Button type='button' variant='outline' onClick={() => navigate("/auth/register")} disabled={isLoading}>
-          Register
-        </Button>
+        <Link to={"/auth/register"}>
+          <Button type='button' variant='outline' disabled={isLoading} className='w-full'>
+            Register
+          </Button>
+        </Link>
       </div>
     </form>
   )

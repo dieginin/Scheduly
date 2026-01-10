@@ -2,13 +2,13 @@ import { Controller, useForm } from "react-hook-form"
 import { type RegisterFormData, registerFormSchema } from "@/auth/validations"
 
 import { Button } from "@/components/ui/button"
+import type { Field } from "@/auth/interfaces"
 import { FormField } from "@/auth/components"
+import { Link } from "react-router"
 import { toast } from "sonner"
 import { useAuth } from "@/auth/hooks"
-import { useNavigate } from "react-router"
 import { useState } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
-import type { Field } from "@/auth/interfaces"
 
 const fields: Field<RegisterFormData>[] = [
   {
@@ -42,7 +42,6 @@ const fields: Field<RegisterFormData>[] = [
 ]
 
 export const RegisterForm = () => {
-  const navigate = useNavigate()
   const form = useForm<RegisterFormData>({
     resolver: zodResolver(registerFormSchema),
     defaultValues: {
@@ -85,9 +84,11 @@ export const RegisterForm = () => {
 
       <div className='grid gap-2'>
         <Button disabled={isLoading}>Register</Button>
-        <Button type='button' variant='outline' onClick={() => navigate("/auth/login")} disabled={isLoading}>
-          Go back
-        </Button>
+        <Link to={"/auth/login"}>
+          <Button type='button' variant='outline' disabled={isLoading} className='w-full'>
+            Go back
+          </Button>
+        </Link>
       </div>
     </form>
   )

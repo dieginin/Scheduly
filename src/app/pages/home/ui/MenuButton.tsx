@@ -9,8 +9,8 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { History, LogOut, Settings } from "lucide-react"
 
+import { Link } from "react-router"
 import { useAuth } from "@/auth/hooks"
-import { useNavigate } from "react-router"
 
 const routes = [
   {
@@ -26,7 +26,6 @@ const routes = [
 ]
 
 export const MenuButton = () => {
-  const navigate = useNavigate()
   const { user, logout, getUserInitials, getUserShortName } = useAuth()
 
   return (
@@ -49,10 +48,12 @@ export const MenuButton = () => {
           <DropdownMenuSeparator />
 
           {routes.map(route => (
-            <DropdownMenuItem key={route.label} onClick={() => navigate(route.path)}>
-              <route.icon />
-              {route.label}
-            </DropdownMenuItem>
+            <Link key={route.label} to={route.path}>
+              <DropdownMenuItem>
+                <route.icon />
+                {route.label}
+              </DropdownMenuItem>
+            </Link>
           ))}
           <DropdownMenuSeparator />
 
