@@ -1,1 +1,1 @@
-export { type PersonalFormData, personalFormSchema } from "./personal.validation"
+export { type PersonalFormData, personalFormSchema } from "./personal.schema"
