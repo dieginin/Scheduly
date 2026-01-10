@@ -2,9 +2,9 @@ import type { AuthResponse } from "../interfaces/auth.response"
 import { registerMock } from "@/mocks/auth.mock"
 import { toast } from "sonner"
 
-export const registerAction = async (email: string, fullName: string, password: string, username: string): Promise<AuthResponse> => {
+export const registerAction = async (email: string, name: string, password: string, username: string): Promise<AuthResponse> => {
   try {
-    const { data } = await registerMock(email, fullName, password, username)
+    const { data } = await registerMock(email, name, password, username)
 
     return data
   } catch (error) {
