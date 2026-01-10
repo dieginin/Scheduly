@@ -1,3 +1,24 @@
+import { BackButton, Title } from "@/app/components"
+import { PersonalCard, PreferencesCard, SecurityCard } from "./ui"
+
+import { Settings } from "lucide-react"
+
 export const SettingsPage = () => {
-  return <div>SettingsPage</div>
+  return (
+    <div className='py-5.5'>
+      <BackButton />
+
+      <div className='grid gap-5 w-sm'>
+        <Title title='Settings' icon={Settings} />
+
+        <div className='grid gap-4 px-2'>
+          <PersonalCard />
+
+          <SecurityCard />
+
+          <PreferencesCard />
+        </div>
+      </div>
+    </div>
+  )
 }

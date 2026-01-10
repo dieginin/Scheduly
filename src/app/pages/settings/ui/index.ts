@@ -1,2 +1,5 @@
 export { PersonalCard } from "./PersonalCard"
+export { PreferenceOption } from "./PreferenceOption"
+export { PreferencesCard } from "./PreferencesCard"
 export { SecurityCard } from "./SecurityCard"
+export { ThemeSwitch } from "./ThemeSwitch"
