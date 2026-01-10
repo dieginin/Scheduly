@@ -6,6 +6,8 @@ import { Lock } from "lucide-react"
 import { MapFields } from "@/components/shared"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { toast } from "sonner"
+import { useAuth } from "@/auth/hooks"
 
 const fields: Field<SecurityFormData>[] = [
   {
@@ -23,6 +25,7 @@ const fields: Field<SecurityFormData>[] = [
 ]
 
 export const SecurityCard = () => {
+  const { updatedPassword } = useAuth()
   const form = useForm<SecurityFormData>({
     resolver: zodResolver(securityFormSchema),
     defaultValues: {
@@ -31,13 +34,20 @@ export const SecurityCard = () => {
     },
   })
 
-  const onSubmit = async (data: SecurityFormData) => console.log(data) // TODO
+  const onSubmit = async (data: SecurityFormData) => {
+    const { password } = data
+
+    const isUpdateSuccess = await updatedPassword(password)
+
+    if (isUpdateSuccess) return toast.success("Password updated")
+  }
 
   return (
     <CustomCard
       icon={Lock}
       title='Security'
       description='Handle your password'
+      disabled={form.formState.isSubmitting}
       buttonLabel='Update password'
       onBtnClick={form.handleSubmit(onSubmit)}
     >

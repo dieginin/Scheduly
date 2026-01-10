@@ -9,6 +9,7 @@ export const useAuth = () => {
   const login = useAuthStore(s => s.login)
   const logout = useAuthStore(s => s.logout)
   const register = useAuthStore(s => s.register)
+  const updatedPassword = useAuthStore(s => s.updatePassword)
   const updatedUser = useAuthStore(s => s.updateUser)
 
   const getUserInitials = () => {
@@ -36,6 +37,7 @@ export const useAuth = () => {
     login,
     logout,
     register,
+    updatedPassword,
     updatedUser,
   }
 }

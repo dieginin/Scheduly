@@ -1,9 +1,8 @@
 import { type StateCreator, create } from "zustand"
+import { checkStatusAction, loginAction, registerAction, updatePasswordAction, updateUserAction } from "../actions"
 
 import type { User } from "../interfaces"
 import { devtools } from "zustand/middleware"
-
-import { checkStatusAction, loginAction, registerAction, updateUserAction } from "../actions"
 
 type AuthStatus = "authenticated" | "unauthenticated" | "checking"
 
@@ -16,6 +15,7 @@ interface AuthState {
   login: (username: string, password: string) => Promise<boolean>
   logout: () => void
   register: (email: string, name: string, password: string, username: string) => Promise<boolean>
+  updatePassword: (password: string) => Promise<boolean>
   updateUser: (email: string, name: string, username: string) => Promise<boolean>
 }
 
@@ -55,6 +55,15 @@ const storeApi: StateCreator<AuthState> = (set, get) => ({
       return true
     } catch {
       get().logout()
+      return false
+    }
+  },
+  updatePassword: async password => {
+    try {
+      const { token, user } = await updatePasswordAction(password)
+      set({ token, user })
+      return true
+    } catch {
       return false
     }
   },

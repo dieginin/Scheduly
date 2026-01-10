@@ -109,3 +109,18 @@ export const updateUserMock = async (email: string, name: string, username: stri
     }, timeoutDelay)
   })
 }
+
+export const updatePasswordMock = async (password: string) => {
+  return new Promise<{ data: AuthResponse }>((resolve, reject) => {
+    setTimeout(() => {
+      const token = localStorage.getItem("token")
+      if (!token) return reject(new Error("Not authenticated"))
+
+      const user = users[token]
+      if (!user) return reject(new Error("Invalid token"))
+      console.log(`New password: ${password}`)
+
+      resolve({ data: { token, user } })
+    }, timeoutDelay)
+  })
+}
