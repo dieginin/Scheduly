@@ -7,7 +7,6 @@ import { FormField } from "@/components/shared"
 import { Link } from "react-router"
 import { toast } from "sonner"
 import { useAuth } from "@/auth/hooks"
-import { useState } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 
 const fields: Field<RegisterFormData>[] = [
@@ -53,16 +52,12 @@ export const RegisterForm = () => {
     },
   })
 
-  const [isLoading, setIsLoading] = useState(false)
   const { register } = useAuth()
 
   const onSubmit = async (data: RegisterFormData) => {
-    setIsLoading(true)
-
     const { name, email, username, password } = data
     const isRegisterSuccessful = await register(email, name, password, username)
 
-    setIsLoading(false)
     if (isRegisterSuccessful) toast.success("Welcome")
   }
 
@@ -74,7 +69,7 @@ export const RegisterForm = () => {
             key={f.name}
             name={f.name}
             control={form.control}
-            disabled={isLoading}
+            disabled={form.formState.isLoading}
             render={({ field, fieldState }) => (
               <FormField field={field} fieldState={fieldState} label={f.label} name={f.name} placeholder={f.placeholder} type={f.type} />
             )}
@@ -83,9 +78,9 @@ export const RegisterForm = () => {
       </div>
 
       <div className='grid gap-2'>
-        <Button disabled={isLoading}>Register</Button>
+        <Button disabled={form.formState.isLoading}>Register</Button>
         <Link to={"/auth/login"}>
-          <Button type='button' variant='outline' disabled={isLoading} className='w-full'>
+          <Button type='button' variant='outline' disabled={form.formState.isLoading} className='w-full'>
             Go back
           </Button>
         </Link>
