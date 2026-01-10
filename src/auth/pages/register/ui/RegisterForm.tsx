@@ -3,11 +3,11 @@ import { type RegisterFormData, registerFormSchema } from "@/auth/validations"
 
 import { Button } from "@/components/ui/button"
 import { FormField } from "@/auth/components"
-import { useNavigate } from "react-router"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useAuthStore } from "@/auth/stores"
-import { useState } from "react"
 import { toast } from "sonner"
+import { useAuth } from "@/auth/hooks"
+import { useNavigate } from "react-router"
+import { useState } from "react"
+import { zodResolver } from "@hookform/resolvers/zod"
 
 export const RegisterForm = () => {
   const navigate = useNavigate()
@@ -23,7 +23,7 @@ export const RegisterForm = () => {
   })
 
   const [isLoading, setIsLoading] = useState(false)
-  const { register } = useAuthStore()
+  const { register } = useAuth()
 
   const onSubmit = async (data: RegisterFormData) => {
     setIsLoading(true)

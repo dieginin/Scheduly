@@ -6,11 +6,11 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 import { RouterProvider } from "react-router"
 import { Toaster } from "sonner"
 import { appRouter } from "./router/app.router"
-import { useAuthStore } from "./auth/stores"
+import { useAuth } from "./auth/hooks"
 
 const queryClient = new QueryClient()
 const CheckAuthProvider = ({ children }: PropsWithChildren) => {
-  const { checkStatus } = useAuthStore()
+  const { checkStatus } = useAuth()
 
   const { isLoading } = useQuery({
     queryKey: ["auth"],

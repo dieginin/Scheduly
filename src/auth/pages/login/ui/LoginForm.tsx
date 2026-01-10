@@ -3,11 +3,11 @@ import { type LoginFormData, loginFormSchema } from "@/auth/validations"
 
 import { Button } from "@/components/ui/button"
 import { FormField } from "@/auth/components"
-import { useNavigate } from "react-router"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useAuthStore } from "@/auth/stores"
-import { useState } from "react"
 import { toast } from "sonner"
+import { useAuth } from "@/auth/hooks"
+import { useNavigate } from "react-router"
+import { useState } from "react"
+import { zodResolver } from "@hookform/resolvers/zod"
 
 export const LoginForm = () => {
   const navigate = useNavigate()
@@ -20,7 +20,7 @@ export const LoginForm = () => {
   })
 
   const [isLoading, setIsLoading] = useState(false)
-  const { login } = useAuthStore()
+  const { login } = useAuth()
 
   const onSubmit = async (data: LoginFormData) => {
     setIsLoading(true)
