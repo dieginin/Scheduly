@@ -43,7 +43,10 @@ const storeApi: StateCreator<AuthState> = (set, get) => ({
       return false
     }
   },
-  logout: () => set({ status: "unauthenticated", token: undefined, user: undefined }),
+  logout: () => {
+    localStorage.removeItem("token")
+    set({ status: "unauthenticated", token: undefined, user: undefined })
+  },
   register: async (email, name, password, username) => {
     try {
       const { token, user } = await registerAction(email, name, password, username)
