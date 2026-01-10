@@ -1,12 +1,12 @@
-import { Controller, useForm } from "react-hook-form"
 import { type LoginFormData, loginFormSchema } from "@/auth/validations"
 
 import { Button } from "@/components/ui/button"
 import type { Field } from "@/interfaces"
-import { FormField } from "@/components/shared"
 import { Link } from "react-router"
+import { MapFields } from "@/components/shared"
 import { toast } from "sonner"
 import { useAuth } from "@/auth/hooks"
+import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 
 const fields: Field<LoginFormData>[] = [
@@ -24,6 +24,7 @@ const fields: Field<LoginFormData>[] = [
 ]
 
 export const LoginForm = () => {
+  const { login } = useAuth()
   const form = useForm<LoginFormData>({
     resolver: zodResolver(loginFormSchema),
     defaultValues: {
@@ -31,8 +32,6 @@ export const LoginForm = () => {
       password: "",
     },
   })
-
-  const { login } = useAuth()
 
   const onSubmit = async (data: LoginFormData) => {
     const { password, username } = data
@@ -44,17 +43,7 @@ export const LoginForm = () => {
   return (
     <form onSubmit={form.handleSubmit(onSubmit)} className='grid'>
       <div className='grid gap-5 px-3'>
-        {fields.map(f => (
-          <Controller
-            key={f.name}
-            name={f.name}
-            control={form.control}
-            disabled={form.formState.isLoading}
-            render={({ field, fieldState }) => (
-              <FormField field={field} fieldState={fieldState} label={f.label} name={f.name} placeholder={f.placeholder} type={f.type} />
-            )}
-          />
-        ))}
+        <MapFields fields={fields} form={form} />
       </div>
 
       <Button type='button' variant='link' size='sm' className='mt-2' disabled>

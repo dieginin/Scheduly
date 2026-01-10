@@ -1,12 +1,12 @@
-import { Controller, useForm } from "react-hook-form"
 import { type RegisterFormData, registerFormSchema } from "@/auth/validations"
 
 import { Button } from "@/components/ui/button"
 import type { Field } from "@/interfaces"
-import { FormField } from "@/components/shared"
 import { Link } from "react-router"
+import { MapFields } from "@/components/shared"
 import { toast } from "sonner"
 import { useAuth } from "@/auth/hooks"
+import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 
 const fields: Field<RegisterFormData>[] = [
@@ -41,6 +41,7 @@ const fields: Field<RegisterFormData>[] = [
 ]
 
 export const RegisterForm = () => {
+  const { register } = useAuth()
   const form = useForm<RegisterFormData>({
     resolver: zodResolver(registerFormSchema),
     defaultValues: {
@@ -52,8 +53,6 @@ export const RegisterForm = () => {
     },
   })
 
-  const { register } = useAuth()
-
   const onSubmit = async (data: RegisterFormData) => {
     const { name, email, username, password } = data
     const isRegisterSuccessful = await register(email, name, password, username)
@@ -64,17 +63,7 @@ export const RegisterForm = () => {
   return (
     <form onSubmit={form.handleSubmit(onSubmit)} className='grid gap-5'>
       <div className='grid gap-4 px-3'>
-        {fields.map(f => (
-          <Controller
-            key={f.name}
-            name={f.name}
-            control={form.control}
-            disabled={form.formState.isLoading}
-            render={({ field, fieldState }) => (
-              <FormField field={field} fieldState={fieldState} label={f.label} name={f.name} placeholder={f.placeholder} type={f.type} />
-            )}
-          />
-        ))}
+        <MapFields fields={fields} form={form} />
       </div>
 
       <div className='grid gap-2'>
