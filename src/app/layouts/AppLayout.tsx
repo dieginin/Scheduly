@@ -2,7 +2,7 @@ import { Outlet } from "react-router"
 
 const AppLayout = () => {
   return (
-    <div className='min-h-svh'>
+    <div className='grid items-center justify-center h-svh'>
       <Outlet />
     </div>
   )
