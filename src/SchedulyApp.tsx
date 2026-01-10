@@ -1,6 +1,6 @@
+import { Loading, ThemeListener } from "./components/shared"
 import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query"
 
-import { Loading } from "./components/shared"
 import type { PropsWithChildren } from "react"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 import { RouterProvider } from "react-router"
@@ -31,6 +31,7 @@ export const SchedulyApp = () => {
         <RouterProvider router={appRouter} />
         <Toaster />
       </CheckAuthProvider>
+      <ThemeListener />
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   )
