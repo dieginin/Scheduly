@@ -86,7 +86,7 @@ export const RegisterForm = () => {
       <div className='grid gap-2'>
         <Button disabled={isLoading}>Register</Button>
         <Button type='button' variant='outline' onClick={() => navigate("/auth/login")} disabled={isLoading}>
-          Go Back
+          Go back
         </Button>
       </div>
     </form>
