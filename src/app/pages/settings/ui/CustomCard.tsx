@@ -24,7 +24,7 @@ export const CustomCard = ({ buttonLabel, children, description, icon: Icon, tit
         {description && <CardDescription>{description}</CardDescription>}
       </CardHeader>
 
-      <CardContent className='grid'>{children}</CardContent>
+      <CardContent className='grid gap-2'>{children}</CardContent>
 
       {buttonLabel && (
         <CardFooter>
