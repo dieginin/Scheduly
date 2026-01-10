@@ -29,7 +29,7 @@ export const MenuButton = () => {
   const { user, logout, getUserInitials, getUserShortName } = useAuth()
 
   return (
-    <div className='border-background fixed top-5 right-4 overflow-hidden rounded-sm border p-0.5 backdrop-blur-xs'>
+    <div className='border-background fixed top-4 right-4 overflow-hidden rounded-sm border p-0.5 backdrop-blur-sm'>
       <DropdownMenu>
         <DropdownMenuTrigger className='flex items-center cursor-pointer'>
           <Avatar>
