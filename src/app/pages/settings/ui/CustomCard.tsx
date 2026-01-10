@@ -7,13 +7,14 @@ import type { LucideProps } from "lucide-react"
 interface Props extends PropsWithChildren {
   buttonLabel?: string
   description?: string
+  disabled?: boolean
   icon: ForwardRefExoticComponent<LucideProps>
   title: string
 
   onBtnClick?: () => Promise<void>
 }
 
-export const CustomCard = ({ buttonLabel, children, description, icon: Icon, title, onBtnClick }: Props) => {
+export const CustomCard = ({ buttonLabel, children, description, disabled, icon: Icon, title, onBtnClick }: Props) => {
   return (
     <Card className='rounded-md'>
       <CardHeader>
@@ -28,7 +29,7 @@ export const CustomCard = ({ buttonLabel, children, description, icon: Icon, tit
 
       {buttonLabel && (
         <CardFooter>
-          <Button className='w-full' onClick={onBtnClick} size='sm'>
+          <Button className='w-full' onClick={onBtnClick} size='sm' disabled={disabled}>
             {buttonLabel}
           </Button>
         </CardFooter>
