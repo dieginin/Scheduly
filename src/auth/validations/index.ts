@@ -1,2 +1,2 @@
-export { type LoginFormData, loginFormSchema } from "./login.validation"
-export { type RegisterFormData, registerFormSchema } from "./register.validation"
+export { type LoginFormData, loginFormSchema } from "./login.schema"
+export { type RegisterFormData, registerFormSchema } from "./register.schema"
