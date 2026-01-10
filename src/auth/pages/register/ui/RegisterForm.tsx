@@ -67,9 +67,9 @@ export const RegisterForm = () => {
       </div>
 
       <div className='grid gap-2'>
-        <Button disabled={form.formState.isLoading}>Register</Button>
+        <Button disabled={form.formState.isSubmitting}>Register</Button>
         <Link to={"/auth/login"}>
-          <Button type='button' variant='outline' disabled={form.formState.isLoading} className='w-full'>
+          <Button type='button' variant='outline' disabled={form.formState.isSubmitting} className='w-full'>
             Go back
           </Button>
         </Link>

@@ -35,7 +35,7 @@ export const LoginForm = () => {
 
   const onSubmit = async (data: LoginFormData) => {
     const { password, username } = data
-    const isLoginSuccessful = await login(password, username)
+    const isLoginSuccessful = await login(username, password)
 
     if (isLoginSuccessful) toast.success("Welcome back")
   }
@@ -50,9 +50,9 @@ export const LoginForm = () => {
         Forgot password? {/* TODO */}
       </Button>
       <div className='grid gap-2'>
-        <Button disabled={form.formState.isLoading}>Login</Button>
+        <Button disabled={form.formState.isSubmitting}>Login</Button>
         <Link to={"/auth/register"}>
-          <Button type='button' variant='outline' disabled={form.formState.isLoading} className='w-full'>
+          <Button type='button' variant='outline' disabled={form.formState.isSubmitting} className='w-full'>
             Register
           </Button>
         </Link>
