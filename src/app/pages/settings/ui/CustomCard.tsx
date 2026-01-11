@@ -3,9 +3,11 @@ import type { ForwardRefExoticComponent, PropsWithChildren } from "react"
 
 import { Button } from "@/components/ui/button"
 import type { LucideProps } from "lucide-react"
+import { cn } from "@/lib"
 
 interface Props extends PropsWithChildren {
   buttonLabel?: string
+  className?: string
   description?: string
   disabled?: boolean
   icon: ForwardRefExoticComponent<LucideProps>
@@ -14,9 +16,9 @@ interface Props extends PropsWithChildren {
   onBtnClick?: () => Promise<void>
 }
 
-export const CustomCard = ({ buttonLabel, children, description, disabled, icon: Icon, title, onBtnClick }: Props) => {
+export const CustomCard = ({ buttonLabel, className, children, description, disabled, icon: Icon, title, onBtnClick }: Props) => {
   return (
-    <Card className='rounded-md'>
+    <Card className={cn("rounded-md justify-center", className)}>
       <CardHeader>
         <CardTitle className='flex items-center gap-2'>
           <Icon className='w-5 h-5' />

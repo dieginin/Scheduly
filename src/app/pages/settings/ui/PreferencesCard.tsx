@@ -4,7 +4,7 @@ import { ThemeSwitch } from "./ThemeSwitch"
 
 export const PreferencesCard = () => {
   return (
-    <CustomCard icon={Settings2} title='Preferences'>
+    <CustomCard icon={Settings2} title='Preferences' className='md:col-span-2'>
       <div className='flex items-center justify-between text-muted-foreground'>
         <h1 className='text-sm font-medium'>Language</h1>
         <small>Coming soon</small>
