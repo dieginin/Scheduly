@@ -1,5 +1,5 @@
 import { Coffee, Play, Square, UtensilsCrossed } from "lucide-react"
-import type { ControlType, Shift, Variant, WorkStatus } from "@/app/interfaces"
+import type { ControlType, Variant, WorkStatus } from "@/app/interfaces"
 
 import { Button } from "@/components/ui/button"
 import { cva } from "class-variance-authority"
@@ -94,7 +94,7 @@ const ClockControl = ({ type, onClick }: { type: ControlType; onClick: () => voi
 }
 
 interface Props {
-  shift: Shift
+  lunchStart?: Date
   status: WorkStatus
 
   onClockIn: () => void
@@ -103,7 +103,7 @@ interface Props {
   onEndLunch: () => void
 }
 
-export const ClockControls = ({ shift, status, onClockIn, onClockOut, onStartLunch, onEndLunch }: Props) => {
+export const ClockControls = ({ lunchStart, status, onClockIn, onClockOut, onStartLunch, onEndLunch }: Props) => {
   const byStatus: Record<WorkStatus, ControlType[]> = {
     idle: ["startShift"],
     working: ["startLunch", "endShift"],
@@ -120,7 +120,7 @@ export const ClockControls = ({ shift, status, onClockIn, onClockOut, onStartLun
   return (
     <div className='flex flex-wrap justify-center gap-3'>
       {byStatus[status]
-        .filter(c => c !== "startLunch" || !shift.lunchStart)
+        .filter(c => c !== "startLunch" || !lunchStart)
         .map(type => (
           <ClockControl key={type} type={type} onClick={handlers[type]} />
         ))}
