@@ -1,7 +1,8 @@
-import { create, type StateCreator } from "zustand"
-import type { Report, WorkStatus } from "../interfaces"
+import type { Report, Shift, WorkStatus } from "../interfaces"
+import { type StateCreator, create } from "zustand"
+import { reviveDate, splitShift } from "@/lib"
+
 import { persist } from "zustand/middleware"
-import { splitShift } from "@/lib"
 
 const defaultReport = {
   number: 0,
@@ -67,4 +68,26 @@ const storeApi: StateCreator<ReportState> = (set, get) => ({
   },
 })
 
-export const useReportStore = create<ReportState>()(persist(storeApi, { name: "report" }))
+export const useReportStore = create<ReportState>()(
+  persist(storeApi, {
+    name: "report",
+    onRehydrateStorage: () => state => {
+      if (!state) return
+
+      const report = state.report
+      report.startDate = new Date(report.startDate)
+      report.endDate = new Date(report.endDate)
+
+      report.shifts = report.shifts.map(
+        shift =>
+          ({
+            ...shift,
+            start: reviveDate(shift.start),
+            end: reviveDate(shift.end),
+            lunchStart: reviveDate(shift.lunchStart),
+            lunchEnd: reviveDate(shift.lunchEnd),
+          } as Shift)
+      )
+    },
+  })
+)
