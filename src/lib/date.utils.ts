@@ -21,8 +21,11 @@ export const formatSemiLongDate = (date: Date) =>
     day: "numeric",
   })
 
-export const formatTime = (time?: Date) =>
-  (time ?? new Date()).toLocaleTimeString("us-US", {
+export const formatTime = (time?: Date | string) => {
+  const d = time instanceof Date ? time : time ? new Date(time) : new Date()
+  if (isNaN(d.getTime())) return "--:--"
+  return d.toLocaleTimeString("en-US", {
     hour: "2-digit",
     minute: "2-digit",
   })
+}
