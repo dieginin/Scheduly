@@ -46,6 +46,7 @@ const storeApi: StateCreator<AuthState> = (set, get) => ({
   },
   logout: () => {
     localStorage.removeItem("token")
+    localStorage.removeItem("report")
     set({ status: "unauthenticated", token: undefined, user: undefined })
   },
   register: async (email, name, password, username) => {
