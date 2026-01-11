@@ -19,7 +19,7 @@ export const SummaryCard = ({ icon: Icon, title, value, isPrimary = false }: Sum
     <Card className='w-full'>
       <CardContent className='grid gap-2 text-center'>
         <Icon className={cn("w-5 h-5 mx-auto", isPrimary ? "text-primary" : "text-muted-foreground")} />
-        <div className='font-mono text-xl font-bold text-foreground'>{value}</div>
+        <div className='font-mono text-xl font-bold text-foreground whitespace-nowrap'>{value}</div>
         <div className='text-xs text-muted-foreground/70'>{title}</div>
       </CardContent>
     </Card>

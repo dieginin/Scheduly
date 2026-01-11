@@ -1,4 +1,4 @@
-import { calculateDays, lunchDuration, shiftDuration } from "@/lib"
+import { calculateDays, lunchDuration, workDuration } from "@/lib"
 
 import { useReportStore } from "../stores"
 
@@ -9,7 +9,7 @@ export const useReport = () => {
 
   const daysCount = report ? calculateDays(report) : 0
   const lunchTime = shift ? lunchDuration(shift) : { hours: 0, minutes: 0 }
-  const workedTime = shift ? shiftDuration(shift) : { hours: 0, minutes: 0 }
+  const workedTime = report ? workDuration(report) : { hours: 0, minutes: 0 }
 
   const isLunching = useReportStore(s => s.isLunching)
   const isWorking = useReportStore(s => s.isWorking)
