@@ -1,19 +1,17 @@
 import type { Report, Shift, WorkStatus } from "../interfaces"
 import { type StateCreator, create } from "zustand"
+import { devtools, persist } from "zustand/middleware"
+
 import { reviveDate, splitShift } from "@/lib"
 
-import { persist } from "zustand/middleware"
-
-const defaultReport = {
-  number: 0,
-  startDate: new Date(),
-  endDate: new Date(),
-  shifts: [],
-}
-
 interface ReportState {
-  report: Report
+  report?: Report
+  shift?: Shift
   status: WorkStatus
+
+  isLunching: boolean
+  isWorking: boolean
+  tookLunch: boolean
 
   clockIn: () => void
   clockOut: () => void
@@ -23,71 +21,71 @@ interface ReportState {
 }
 
 const storeApi: StateCreator<ReportState> = (set, get) => ({
-  report: defaultReport,
+  report: undefined,
+  shift: undefined,
   status: "idle",
 
-  clockIn: () => {
-    const report = get().report
-    if (report.number === 0) {
-      report.number = 1
-      report.startDate = new Date()
-    }
-    report.shifts = [...report.shifts, { start: new Date() }]
+  isLunching: false,
+  isWorking: false,
+  tookLunch: false,
 
-    set({ report, status: "working" })
+  clockIn: () => {
+    const report = get().report ?? { number: 1, startDate: new Date(), shifts: [] }
+
+    const shift = { start: new Date() }
+    report.shifts = [...report.shifts, shift]
+
+    set({ report, shift, status: "working", isWorking: true })
   },
   clockOut: () => {
-    const report = get().report
-    const { rest, shift } = splitShift(report.shifts)
+    const report = get().report!
+    const { shift, rest } = splitShift(report.shifts)
 
     shift.end = new Date()
+    if (get().status === "lunch") shift.lunchEnd = new Date()
     report.shifts = [...rest, shift]
 
-    set({ report, status: "idle" })
+    set({ report, shift: undefined, status: "idle", isLunching: false, isWorking: false, tookLunch: false })
   },
   endLunch: () => {
-    const report = get().report
-    const { rest, shift } = splitShift(report.shifts)
+    const report = get().report!
+    const { shift, rest } = splitShift(report.shifts)
 
     shift.lunchEnd = new Date()
     report.shifts = [...rest, shift]
 
-    set({ report, status: "working" })
+    set({ report, shift, status: "working", isLunching: false, tookLunch: true })
   },
   startLunch: () => {
-    const report = get().report
-    const { rest, shift } = splitShift(report.shifts)
+    const report = get().report!
+    const { shift, rest } = splitShift(report.shifts)
 
     shift.lunchStart = new Date()
     report.shifts = [...rest, shift]
 
-    set({ report, status: "lunch" })
+    set({ report, status: "lunch", isLunching: true })
   },
   submitReport: async () => {
+    set({ report: undefined, shift: undefined, status: "idle", isLunching: false, isWorking: false, tookLunch: false })
     return true
   },
 })
 
 export const useReportStore = create<ReportState>()(
-  persist(storeApi, {
+  persist(devtools(storeApi), {
     name: "report",
     onRehydrateStorage: () => state => {
-      if (!state) return
-
-      const report = state.report
-      report.startDate = new Date(report.startDate)
-      report.endDate = new Date(report.endDate)
-
-      report.shifts = report.shifts.map(
-        shift =>
-          ({
-            ...shift,
-            start: reviveDate(shift.start),
-            end: reviveDate(shift.end),
-            lunchStart: reviveDate(shift.lunchStart),
-            lunchEnd: reviveDate(shift.lunchEnd),
-          } as Shift)
-      )
+      if (state?.report) {
+        state.report.startDate = new Date(state.report.startDate)
+        state.report.endDate = reviveDate(state.report.endDate)
+        state.report.shifts = state.report.shifts.map(shift => ({
+          ...shift,
+          start: new Date(shift.start),
+          end: reviveDate(shift.end),
+          lunchStart: reviveDate(shift.lunchStart),
+          lunchEnd: reviveDate(shift.lunchEnd),
+        }))
+      }
     },
   })
 )

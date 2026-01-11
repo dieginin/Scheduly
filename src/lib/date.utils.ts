@@ -21,8 +21,8 @@ export const formatSemiLongDate = (date: Date) =>
     day: "numeric",
   })
 
-export const formatTime = (time: Date) =>
-  time.toLocaleTimeString("us-US", {
+export const formatTime = (time?: Date) =>
+  (time ?? new Date()).toLocaleTimeString("us-US", {
     hour: "2-digit",
     minute: "2-digit",
   })
